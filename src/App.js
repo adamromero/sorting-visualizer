@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState } from "react";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+   const [sliderValue, setSliderValue] = useState(0);
+
+   return (
+      <div>
+         <h1>Sorting Visualizer</h1>
+         <input
+            type="range"
+            className="slider"
+            id="range"
+            min="0"
+            max="100"
+            value={sliderValue}
+            onChange={(e) => setSliderValue(e.target.value)}
+         />
+         {sliderValue}
+
+         <div style={{ display: "flex", gap: "6px", marginTop: "50px" }}>
+            {Array.from({ length: sliderValue }, (_, k) => (
+               <div
+                  style={{
+                     height: "100px",
+                     width: "20px",
+                     background: "green",
+                  }}
+                  key={k}
+               ></div>
+            ))}
+         </div>
+      </div>
+   );
 }
 
 export default App;
