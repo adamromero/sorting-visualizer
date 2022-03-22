@@ -1,34 +1,80 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import shuffle from "./utils/shuffle";
+import insertionSort from "./algorithms/insertion";
 
 function App() {
-   const [sliderValue, setSliderValue] = useState(0);
+   const [sliderValue, setSliderValue] = useState(20);
+   const [elements, setElements] = useState([]);
+
+   useEffect(() => {
+      initArray();
+   }, [sliderValue]);
+
+   const initArray = () => {
+      const array = [];
+      for (let i = 1; i <= sliderValue; i++) {
+         array.push(i);
+      }
+      setElements(shuffle(array));
+   };
+
+   const sortArray = () => {
+      console.log("presorted:", elements);
+      const sorted = insertionSort(elements);
+      console.log("sorted:", sorted);
+      setElements(sorted);
+   };
 
    return (
       <div>
          <h1>Sorting Visualizer</h1>
-         <input
-            type="range"
-            className="slider"
-            id="range"
-            min="0"
-            max="100"
-            value={sliderValue}
-            onChange={(e) => setSliderValue(e.target.value)}
-         />
-         {sliderValue}
+         <div>
+            <input
+               type="range"
+               className="slider"
+               id="range"
+               min="2"
+               max="50"
+               value={sliderValue}
+               onChange={(e) => setSliderValue(e.target.value)}
+            />
+            {sliderValue}
+         </div>
 
-         <div style={{ display: "flex", gap: "6px", marginTop: "50px" }}>
-            {Array.from({ length: sliderValue }, (_, k) => (
+         <button onClick={sortArray}>Sort</button>
+
+         <div
+            style={{
+               display: "flex",
+               alignItems: "flex-end",
+               gap: "6px",
+               marginTop: "50px",
+            }}
+         >
+            {elements.map((element, index) => (
                <div
                   style={{
-                     height: "100px",
+                     height: `${(element + 5) * 10}px`,
                      width: "20px",
-                     background: "green",
+                     background: "#0075ff",
                   }}
-                  key={k}
+                  key={index}
                ></div>
             ))}
+
+            {/* {shuffle(
+               Array.from({ length: sliderValue }, (_, k) => (
+                  <div
+                     style={{
+                        height: `${(k + 5) * 10}px`,
+                        width: "20px",
+                        background: "green",
+                     }}
+                     key={k}
+                  ></div>
+               ))
+            )} */}
          </div>
       </div>
    );
