@@ -1,16 +1,16 @@
-const insertionSort = (array) => {
+const bubbleSort = (array) => {
    const elementsArray = [...array];
    const orderOfElements = [];
 
    let i, j;
-   for (i = 0; i < elementsArray.length; i++) {
-      for (j = i + 1; j < elementsArray.length; j++) {
+   for (i = 0; i < elementsArray.length - 1; i++) {
+      for (j = 0; j < elementsArray.length - i - 1; j++) {
          orderOfElements.push([i, j, null, null]);
 
-         if (elementsArray[i] > elementsArray[j]) {
-            [elementsArray[i], elementsArray[j]] = [
+         if (elementsArray[j] > elementsArray[j + 1]) {
+            [elementsArray[j], elementsArray[j + 1]] = [
+               elementsArray[j + 1],
                elementsArray[j],
-               elementsArray[i],
             ];
             orderOfElements.push([i, j, [...elementsArray], null]);
          }
@@ -21,4 +21,4 @@ const insertionSort = (array) => {
    return orderOfElements;
 };
 
-export default insertionSort;
+export default bubbleSort;
