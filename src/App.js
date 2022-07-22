@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Button from "./Button";
 import shuffle from "./utils/shuffle";
 import insertionSort from "./algorithms/insertion";
 import bubbleSort from "./algorithms/bubble";
@@ -9,9 +8,7 @@ const App = () => {
    const [elementAmount, setElementAmount] = useState(25);
    const [speed, setSpeed] = useState(10);
    const [elements, setElements] = useState([]);
-   const [isSorted, setIsSorted] = useState(false);
    const [algorithm, setAlgorithm] = useState("insertion");
-   const [tab, setTab] = useState();
 
    useEffect(() => {
       shuffleArray();
@@ -61,9 +58,7 @@ const App = () => {
             }, speed);
          })(0);
       };
-
       console.log(getAlgorithm());
-
       sortByOrder(getAlgorithm());
    };
 
@@ -99,8 +94,19 @@ const App = () => {
                         onChange={(e) => setSpeed(e.target.value)}
                      />
                   </div>
-                  <Button title="Sort" handleClick={sortArray} />
-                  <Button title="Shuffle" handleClick={shuffleArray} />
+
+                  <button
+                     className="bg-slate-300 hover:bg-slate-500 transition-colors text-black px-3 py-1"
+                     onClick={sortArray}
+                  >
+                     Sort
+                  </button>
+                  <button
+                     className="bg-slate-300 hover:bg-slate-500 transition-colors text-black px-3 py-1"
+                     onClick={shuffleArray}
+                  >
+                     Shuffle
+                  </button>
                </div>
                <div className="">
                   <select
